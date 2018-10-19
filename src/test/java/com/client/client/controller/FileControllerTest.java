@@ -1,6 +1,7 @@
 package com.client.client.controller;
 
 import com.client.client.ClientApplication;
+import com.client.client.entity.Gender;
 import com.client.client.entity.Record;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +42,7 @@ public class FileControllerTest {
         record = new Record();
         record.setId(1L);
         record.setStatus("late");
-        record.setGender(1);
+        record.setGender(Gender.FEMALE);
         record.setDateOfBirth(new SimpleDateFormat("dd/MM/yyyy").parse("22/04/1990"));
     }
 
@@ -51,9 +52,10 @@ public class FileControllerTest {
 
         when(fileController.findByGender(any(String.class))).thenReturn(Arrays.asList(record));
 
-        this.mvc.perform(MockMvcRequestBuilders.get("/api/file").accept(MediaType.APPLICATION_JSON).param("gender", "female"))
+        this.mvc.perform(MockMvcRequestBuilders.get("/api/file").accept(MediaType.APPLICATION_JSON)
+                .param("gender", "female"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].gender", is(1)));
+                .andExpect(jsonPath("$[0].gender", is(Gender.FEMALE.name())));
     }
 
     @Test
@@ -61,7 +63,8 @@ public class FileControllerTest {
 
         when(fileController.findByLoanState("late")).thenReturn(Arrays.asList(record));
 
-        this.mvc.perform(MockMvcRequestBuilders.get("/api/file").accept(MediaType.APPLICATION_JSON).param("state", "late"))
+        this.mvc.perform(MockMvcRequestBuilders.get("/api/file").accept(MediaType.APPLICATION_JSON)
+                .param("state", "late"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].status", is("late")));
     }
@@ -72,12 +75,12 @@ public class FileControllerTest {
         when(fileController.findByYearOfBirthGenderAndState("female","late","1990")).thenReturn(Arrays.asList(record));
 
         this.mvc.perform(MockMvcRequestBuilders.get("/api/file").accept(MediaType.APPLICATION_JSON)
-                .param("state", "late")
                 .param("gender", "female")
+                .param("state", "late")
                 .param("year","1990"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].status", is("late")))
-                .andExpect(jsonPath("$[0].gender", is(1)))
+                .andExpect(jsonPath("$[0].gender", is(Gender.FEMALE.name())))
                 .andExpect(jsonPath("$[0].dateOfBirth", is("22/04/1990")));
     }
 }

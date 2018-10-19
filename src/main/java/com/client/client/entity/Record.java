@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import java.util.Date;
 
@@ -30,11 +32,13 @@ public class Record {
     private String employmentPosition;
     private Integer employmentStatus;
     private Integer existingLiabilities;
-    private Integer gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     private Integer homeOwnershipType;
     private Integer incomeFromPrincipalEmployer;
     private Integer incomeTotal;
     private Double interestRateAPR;
+    @JsonFormat(pattern="dd/MM/yyyy")
     private Date loanDate;
     private Integer loanDuration;
     private Integer maritalStatus;
@@ -46,6 +50,7 @@ public class Record {
     private String workExperience;
     private Double previousScore;
     private Boolean defaulted;
+    @JsonFormat(pattern="dd/MM/yyyy")
     private Date defaultDate;
 
 

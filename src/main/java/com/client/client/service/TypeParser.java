@@ -1,5 +1,7 @@
 package com.client.client.service;
 
+import com.client.client.entity.Gender;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,70 +50,18 @@ public class TypeParser {
         }
     }
 
+    public static Gender parseGender(String value){
+        try {
+            switch (value){
+                case "1" :  return Gender.MALE;
+                case "0" : return  Gender.FEMALE;
+                case "male" : return Gender.MALE;
+                case "female" : return Gender.FEMALE;
+                default: return null;
+            }
 
-
-//    STRING {
-//        @Override
-//        public Object parse(String value) {
-//            return value;
-//        }
-//    },
-//
-//    INTEGER {
-//        @Override
-//        public Object parse(String value) {
-//            try {
-//                return Integer.parseInt(value);
-//            }catch (NumberFormatException e){
-//                return null;
-//            }
-//        }
-//    },
-//
-//    DOUBLE {
-//        @Override
-//        public Object parse(String value) {
-//            try {
-//                return Double.parseDouble(value);
-//            }catch (NumberFormatException e){
-//                return null;
-//            }
-//        }
-//    },
-//
-//    LONG {
-//        @Override
-//        public Long parse(String value) {
-//            try {
-//                return Long.parseLong(value);
-//            }catch (NumberFormatException e){
-//                return null;
-//            }
-//        }
-//    },
-//
-//    DATE {
-//        @Override
-//        public Date parse(String value) {
-//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-//            try {
-//                return simpleDateFormat.parse(value);
-//            } catch (ParseException e) {
-//               return null;
-//            }
-//        }
-//    },
-//
-//    BOOLEAN {
-//        @Override
-//        public Boolean parse(String value) {
-//            try {
-//                return Boolean.parseBoolean(value);
-//            } catch (NumberFormatException e) {
-//                return null;
-//            }
-//        }
-//    };
-//
-//    public abstract Object parse(String value) ;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
 }

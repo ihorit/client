@@ -23,7 +23,7 @@ public class DatabaseController {
     @ResponseBody
     @RequestMapping(value = "/api/db", params = "gender", method = RequestMethod.GET)
     public List<Record> findByGender(@RequestParam("gender") String gender) {
-        return recordRepository.findByGender(TypeParser.parseInt(getGenderType(gender)));
+        return recordRepository.findByGender(TypeParser.parseGender(gender));
     }
 
     @ResponseBody
@@ -42,15 +42,6 @@ public class DatabaseController {
     @RequestMapping(value = "/api/db", params = {"gender", "state", "year"}, method = RequestMethod.GET)
     public List<Record> findByYearOfBirthGenderAndState(@RequestParam("gender") String gender,
                                                          @RequestParam("state") String state, @RequestParam("year") String year) {
-        return recordRepository.findByGenderAndStatusIgnoreCaseAndDateOfBirth(TypeParser.parseInt(getGenderType(gender)), state, TypeParser.parseInt(year));
-    }
-
-    public String getGenderType(String gender){
-        if(gender.equals("male"))
-            return  "0";
-        else if(gender.equals("female"))
-            return  "1";
-        else
-            return "2";
+        return recordRepository.findByGenderAndStatusIgnoreCaseAndDateOfBirth(TypeParser.parseGender(gender), state, TypeParser.parseInt(year));
     }
 }

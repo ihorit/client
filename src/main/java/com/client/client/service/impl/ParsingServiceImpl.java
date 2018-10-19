@@ -77,7 +77,7 @@ public class ParsingServiceImpl implements ParsingService {
                 record.setEmploymentStatus(TypeParser.parseInt(string[13]));
 
                 record.setExistingLiabilities(TypeParser.parseInt(string[14]));
-                record.setGender(TypeParser.parseInt(string[15]));
+                record.setGender(TypeParser.parseGender(string[15]));
                 record.setHomeOwnershipType(TypeParser.parseInt(string[16]));
 
                 record.setIncomeFromPrincipalEmployer(TypeParser.parseInt(string[17]));

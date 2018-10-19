@@ -27,7 +27,7 @@ public class FileServiceImpl implements FileService {
     public List<Record> findByGender(String gender) {
         return parsingService.getAllRecords().stream().filter(record ->
                 record.getGender() != null &&
-                record.getGender().equals(TypeParser.parseInt(getGenderType(gender)))).collect(Collectors.toList());
+                record.getGender().equals(TypeParser.parseGender(gender))).collect(Collectors.toList());
     }
 
     @Override
@@ -55,7 +55,7 @@ public class FileServiceImpl implements FileService {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(record.getDateOfBirth());
             int recordYear = calendar.get(Calendar.YEAR);
-            return record.getGender().equals(TypeParser.parseInt(getGenderType(gender)))
+            return record.getGender().equals(TypeParser.parseGender(gender))
                     && record.getStatus().equalsIgnoreCase(state)
                     && recordYear == Integer.parseInt(year);
 

@@ -1,5 +1,6 @@
 package com.client.client.repository;
 
+import com.client.client.entity.Gender;
 import com.client.client.entity.Record;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,15 +32,15 @@ public class RecordRepositoryTest {
 
         Record record = new Record();
         record.setId(1L);
-        record.setGender(1);
+        record.setGender(Gender.MALE);
 
         entityManager.persist(record);
         entityManager.flush();
 
-        List<Record> male = recordRepository.findByGender(1);
+        List<Record> male = recordRepository.findByGender(Gender.MALE);
 
         assertTrue(!male.isEmpty());
-        assertTrue(male.get(0).getGender() == 1);
+        assertTrue(male.get(0).getGender().equals(Gender.MALE));
 
     }
 
@@ -91,17 +92,17 @@ public class RecordRepositoryTest {
         Record record = new Record();
         record.setId(1L);
         record.setStatus("late");
-        record.setGender(1);
+        record.setGender(Gender.MALE);
         record.setDateOfBirth(new SimpleDateFormat("dd/MM/yyyy").parse("22/04/1990"));
 
         entityManager.persist(record);
         entityManager.flush();
 
-        List<Record> records = recordRepository.findByGenderAndStatusIgnoreCaseAndDateOfBirth(1,"late",1990);
+        List<Record> records = recordRepository.findByGenderAndStatusIgnoreCaseAndDateOfBirth(Gender.MALE,"late",1990);
 
         assertTrue(!records.isEmpty());
         assertTrue(records.get(0).getStatus().equals("late"));
-        assertTrue(records.get(0).getGender() == 1);
+        assertTrue(records.get(0).getGender().equals(Gender.MALE));
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(records.get(0).getDateOfBirth());

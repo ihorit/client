@@ -1,5 +1,6 @@
 package com.client.client.repository;
 
+import com.client.client.entity.Gender;
 import com.client.client.entity.Record;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +12,7 @@ import java.util.List;
 @Repository
 public interface RecordRepository extends JpaRepository<Record, Long> {
 
-    List<Record> findByGender(int gender);
+    List<Record> findByGender(Gender gender);
 
     List<Record> findByStatus(String status);
 
@@ -19,5 +20,5 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
     List<Record> findByDateOfBirth(int year);
 
     @Query(value = "SELECT r FROM Record r WHERE r.gender = ?1 and r.status = ?2 and YEAR(r.dateOfBirth) = ?3 ")
-    List<Record> findByGenderAndStatusIgnoreCaseAndDateOfBirth(int gender, String state, int year);
+    List<Record> findByGenderAndStatusIgnoreCaseAndDateOfBirth(Gender gender, String state, int year);
 }

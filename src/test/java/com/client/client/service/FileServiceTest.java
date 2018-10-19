@@ -1,5 +1,6 @@
 package com.client.client.service;
 
+import com.client.client.entity.Gender;
 import com.client.client.entity.Record;
 import com.client.client.service.impl.FileServiceImpl;
 import org.junit.Before;
@@ -33,7 +34,7 @@ public class FileServiceTest {
         Record record = new Record();
         record.setId(1L);
         record.setStatus("late");
-        record.setGender(1);
+        record.setGender(Gender.FEMALE);
         record.setDateOfBirth(new SimpleDateFormat("dd/MM/yyyy").parse("22/04/1990"));
 
         recordList = Arrays.asList(record);
@@ -47,7 +48,7 @@ public class FileServiceTest {
         List<Record> gender = fileService.findByGender("female");
 
         assertTrue(!gender.isEmpty());
-        assertTrue(gender.get(0).getGender().equals(TypeParser.parseInt(fileService.getGenderType("female"))));
+        assertTrue(gender.get(0).getGender().equals(Gender.FEMALE));
     }
 
     @Test
@@ -75,7 +76,7 @@ public class FileServiceTest {
         List<Record> records = fileService.findByYearOfBirthGenderAndState("female","late","1990");
 
         assertTrue(!records.isEmpty());
-        assertTrue(records.get(0).getGender().equals(TypeParser.parseInt(fileService.getGenderType("female"))));
+        assertTrue(records.get(0).getGender().equals(Gender.FEMALE));
         assertTrue(records.get(0).getStatus().equals("late"));
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(records.get(0).getDateOfBirth());
